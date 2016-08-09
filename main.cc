@@ -238,10 +238,10 @@ int main( int argc, char **argv )
 	
 	unsigned char * seq0 = ( unsigned char * ) calloc ( ( n + 1 ) , sizeof( unsigned char ) );
 	seq0[n] = '\0';
-	unsigned int no_of_q_grams = pow(alphabet_size, q_gram );
+	unsigned long no_of_q_grams = pow(alphabet_size, q_gram );
 	
-	unsigned char * de_bruijn_seq = ( unsigned char  * ) calloc ( no_of_q_grams + q_gram  , sizeof( unsigned int ) );
-	de_bruijn_seq[ 	no_of_q_grams + q_gram ] = '\0';
+	unsigned char * de_bruijn_seq = ( unsigned char  * ) calloc ( no_of_q_grams + ( q_gram - 1 )  , sizeof( unsigned char ) );
+	de_bruijn_seq[ 	no_of_q_grams + ( q_gram - 2 ) ] = '\0';
 
 	unsigned char * db = ( unsigned char  * ) calloc ( alphabet_size*q_gram + 1  , sizeof( unsigned char ) );
 	db[ alphabet_size*q_gram] = '\0';	
@@ -266,11 +266,11 @@ int main( int argc, char **argv )
 		count++;
 	}
 
-	unsigned int * errors = ( unsigned int * ) calloc ( no_of_q_grams + 1 , sizeof( unsigned int * ) );
+	unsigned int * errors = ( unsigned int * ) calloc ( ( no_of_q_grams + 1 ) , sizeof( unsigned int ) );
 	errors[ no_of_q_grams ] = '\0';
 
 	for(int j = 0; j< no_of_q_grams; j++)
-		errors[ j ] = no_of_q_grams + (q_gram - 1);
+		errors[ j ] = max_error + 1;
 
 	unsigned char ** combinations = ( unsigned char ** ) calloc ( no_of_q_grams , sizeof( unsigned char * ) );
 
